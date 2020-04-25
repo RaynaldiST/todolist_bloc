@@ -1,14 +1,15 @@
-import 'dart:js';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:bloc/bloc.dart';
-import 'package:todolistbloc/blocs/tab/tab.dart';
-import 'package:todolistbloc/localization.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todolistbloc/blocs/filtered/filtered_bloc.dart';
+import 'package:todolistbloc/blocs/stats/stats.dart';
 import 'package:todos_repository_simple/todos_repository_simple.dart';
 import 'package:todos_app_core/todos_app_core.dart';
+
+import 'blocs/tab/tab.dart';
+import 'blocs/todos/todos.dart';
+import 'localization.dart';
 
 void main() {
   BlocSupervisor.delegate = SimpleBlocDelegate();
@@ -18,7 +19,7 @@ void main() {
           todosRepository: const TodosRepositoryFlutter(
         fileStorage: const FileStorage(
             '__flutter_bloc_app__', getApplicationDocumentsDirectory),
-      )..add(TodosLoaded()));
+      )..add(TodoLoaded()));
     },
     child: TodosApps(),
   ));
@@ -41,15 +42,24 @@ class TodosApps extends StatelessWidget {
               BlocProvider<TabBloc>(
                 create: (context) => TabBloc(),
               ),
-              BlocProvider<FilteredTodoBloc>(
-
+              BlocProvider<FilteredBloc>(
+                create: (context) => FilteredBloc(
+                  todosBloc: BlocProvider.of<TodosBloc>(context)
+                ),
+              ),
+              BlocProvider<StatsBloc>(
+                create: (context) => StatsBloc(
+                  todosBloc: BlocProvider.of<TodosBloc>(context)
+                ),
               ),
             ],
+            child: HomeScreen(),
           );
+        },
+        ArchSampleRoutes.addTodo: (context) {
+          return
         }
       },
     );
   }
 }
-
-

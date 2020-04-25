@@ -32,7 +32,7 @@ class Todo extends Equatable {
     return 'Todo { complete: $complete, task: $task, note: $note, id: $id }';
   }
 
-  TodoEntity todoEntity() {
+  TodoEntity toEntity() {
     return TodoEntity(task, id, note, complete);
   }
 
