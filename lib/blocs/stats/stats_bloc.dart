@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todolistbloc/blocs/stats/stats.dart';
 import 'package:todolistbloc/blocs/todos/todos.dart';
@@ -8,7 +8,7 @@ class StatsBloc extends Bloc<StatsEvent, StatsState> {
   final TodosBloc todosBloc;
   StreamSubscription todosSubscription;
 
-  StatsBloc({this.todosBloc}) {
+  StatsBloc({@required this.todosBloc}) {
     todosSubscription = todosBloc.listen((state) {
       if (state is TodosLoadSuccess) {
         add(StatsUpdated(state.todos));

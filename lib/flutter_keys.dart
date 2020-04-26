@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-class WidgetKeys {
+class FlutterKeys {
   static final extraActionsPopupMenuButton = const Key('__extraActionsPopupMenuButton__');
   static final extraActionsEmptyContainer = const Key('__extraActionsEmptyContainer__');
   static final filteredTodosEmptyContainer = const Key('__filteredTodoEmptyContainer__');
